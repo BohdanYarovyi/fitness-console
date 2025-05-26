@@ -1,22 +1,22 @@
 package com.yarovyi.app.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Workout {
     private ExerciseType exerciseType;
     private LocalDate date;
     private int durationMinutes;
     private int caloriesBurned;
+
+    public Workout() {}
+
+    public Workout(ExerciseType exerciseType, LocalDate date, int durationMinutes, int caloriesBurned) {
+        this.exerciseType = exerciseType;
+        this.date = date;
+        this.durationMinutes = durationMinutes;
+        this.caloriesBurned = caloriesBurned;
+    }
 
     public enum ExerciseType {
         YOGA,
@@ -44,12 +44,44 @@ public class Workout {
 
     @Override
     public String toString() {
-        return "Workout{" +
+        return "WorkoutMenu{" +
                "exerciseType=" + exerciseType +
                ", date=" + date +
                ", durationMinutes=" + durationMinutes +
                ", caloriesBurned=" + caloriesBurned +
                '}';
+    }
+
+    public ExerciseType getExerciseType() {
+        return exerciseType;
+    }
+
+    public void setExerciseType(ExerciseType exerciseType) {
+        this.exerciseType = exerciseType;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public int getDurationMinutes() {
+        return durationMinutes;
+    }
+
+    public void setDurationMinutes(int durationMinutes) {
+        this.durationMinutes = durationMinutes;
+    }
+
+    public int getCaloriesBurned() {
+        return caloriesBurned;
+    }
+
+    public void setCaloriesBurned(int caloriesBurned) {
+        this.caloriesBurned = caloriesBurned;
     }
 
 }
