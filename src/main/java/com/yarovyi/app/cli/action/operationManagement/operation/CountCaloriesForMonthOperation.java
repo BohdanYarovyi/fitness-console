@@ -1,6 +1,10 @@
 package com.yarovyi.app.cli.action.operationManagement.operation;
 
+import com.yarovyi.app.context.AppContext;
+
 public class CountCaloriesForMonthOperation extends Operation {
+    private AppContext appContext;
+
 
     @Override
     public void doOperation() {
@@ -16,6 +20,11 @@ public class CountCaloriesForMonthOperation extends Operation {
     @Override
     public String getOperationPattern() {
         return "/caloriesForMonth";
+    }
+
+    @Override
+    public void setApplicationContext(AppContext context) {
+        this.appContext = context;
     }
 
 }

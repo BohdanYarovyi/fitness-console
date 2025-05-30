@@ -2,8 +2,10 @@ package com.yarovyi.app.entity;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Workout {
+    private UUID id;
     private ExerciseType exerciseType;
     private LocalDate date;
     private int durationMinutes;
@@ -11,7 +13,16 @@ public class Workout {
 
     public Workout() {}
 
+    public Workout(Workout other) {
+        this(other.getId(), other.exerciseType, other.date, other.durationMinutes, other.caloriesBurned);
+    }
+
     public Workout(ExerciseType exerciseType, LocalDate date, int durationMinutes, int caloriesBurned) {
+        this(null, exerciseType, date, durationMinutes, caloriesBurned);
+    }
+
+    public Workout(UUID id, ExerciseType exerciseType, LocalDate date, int durationMinutes, int caloriesBurned) {
+        this.id = id;
         this.exerciseType = exerciseType;
         this.date = date;
         this.durationMinutes = durationMinutes;
@@ -31,25 +42,35 @@ public class Workout {
         if (object == null || getClass() != object.getClass()) return false;
         Workout workout = (Workout) object;
 
-        return durationMinutes == workout.durationMinutes
+        return Objects.equals(id , workout.id)
+               && Objects.equals(date, workout.date)
+               && durationMinutes == workout.durationMinutes
                && caloriesBurned == workout.caloriesBurned
-               && exerciseType == workout.exerciseType
-               && Objects.equals(date, workout.date);
+               && exerciseType == workout.exerciseType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(exerciseType, date, durationMinutes, caloriesBurned);
+        return Objects.hash(id, exerciseType, date, durationMinutes, caloriesBurned);
     }
 
     @Override
     public String toString() {
-        return "WorkoutMenu{" +
-               "exerciseType=" + exerciseType +
+        return "Workout{" +
+               "id=" + id +
+               ", exerciseType=" + exerciseType +
                ", date=" + date +
                ", durationMinutes=" + durationMinutes +
                ", caloriesBurned=" + caloriesBurned +
                '}';
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public ExerciseType getExerciseType() {

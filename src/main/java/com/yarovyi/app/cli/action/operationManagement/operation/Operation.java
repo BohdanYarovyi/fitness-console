@@ -1,5 +1,7 @@
 package com.yarovyi.app.cli.action.operationManagement.operation;
 
+import com.yarovyi.app.context.AppContext;
+
 import java.util.Objects;
 
 public abstract class Operation {
@@ -7,7 +9,7 @@ public abstract class Operation {
     public abstract void doOperation();
     public abstract String getOperationDescription();
     public abstract String getOperationPattern();
-
+    public abstract void setApplicationContext(AppContext context);
     public boolean isPatternMatches(String inputPattern) {
         return getOperationPattern().equals(inputPattern);
     }

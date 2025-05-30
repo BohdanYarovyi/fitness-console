@@ -2,6 +2,7 @@ package com.yarovyi.app.cli.action.operationManagement;
 
 import com.yarovyi.app.cli.exception.OperationNotFoundException;
 import com.yarovyi.app.cli.action.operationManagement.operation.Operation;
+import com.yarovyi.app.context.AppContext;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -10,10 +11,14 @@ import java.util.Set;
 
 public class OperationRegister {
     private final Set<Operation> operations = new HashSet<>();
+    private final AppContext context;
 
-    public OperationRegister() {}
+    public OperationRegister(AppContext context) {
+        this.context = context;
+    }
 
     public void addOperation(Operation operation) {
+        operation.setApplicationContext(context);
         this.operations.add(operation);
     }
 

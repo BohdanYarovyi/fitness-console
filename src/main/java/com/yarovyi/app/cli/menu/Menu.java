@@ -17,6 +17,7 @@ public interface Menu {
     OperationRegister getOperationRegister();
     CommandRegister getCommandRegister();
     List<Menu> getSubmenus();
+    void addSubmenu(Menu menu);
 
 
     default void startMenu() {
