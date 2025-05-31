@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import static com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates.*;
+import static com.yarovyi.app.ui.util.DateUtil.parseDate;
 
 public class AddWorkoutOperation extends Operation {
     private AppContext appContext;
@@ -19,16 +20,16 @@ public class AddWorkoutOperation extends Operation {
         WorkoutRepository workoutRepository = appContext.getWorkoutRepository();
 
         try {
-            Workout.ExerciseType exerciseType = getExerciseType();
-            LocalDate date = getDate();
-            int durationMinutes = getPositiveNumberWithLabel("Duration minutes:");
-            int caloriesBurned = getPositiveNumberWithLabel("Calories burned:");
+            Workout.ExerciseType exerciseType = promptExerciseType();
+            LocalDate date = promptDate();
+            int durationMinutes = promptPositiveNumberWithLabel("Duration minutes:");
+            int caloriesBurned = promptPositiveNumberWithLabel("Calories burned:");
 
             Workout workout = new Workout(exerciseType, date, durationMinutes, caloriesBurned);
             UUID id = workoutRepository.addWorkout(workout);
             PRINT_MESSAGE.accept("Workout successfully created with id: " + id);
         } catch (UserInputNotValidException e) {
-            PRINT_WARNING.accept("Failed to create workout: " + e.getMessage());
+            PRINT_WARNING.accept("| " + e.getMessage());
         }
     }
 
@@ -47,7 +48,7 @@ public class AddWorkoutOperation extends Operation {
         this.appContext = context;
     }
 
-    protected Workout.ExerciseType getExerciseType() throws UserInputNotValidException {
+    protected Workout.ExerciseType promptExerciseType() throws UserInputNotValidException {
         Workout.ExerciseType[] types = Workout.ExerciseType.values();
         PRINT_LIST_OF_EXERCISE_TYPE.accept(types);
 
@@ -62,7 +63,7 @@ public class AddWorkoutOperation extends Operation {
         }
     }
 
-    protected LocalDate getDate() throws UserInputNotValidException {
+    protected LocalDate promptDate() throws UserInputNotValidException {
         WorkoutRepository workoutRepository = this.appContext.getWorkoutRepository();
         String userInput = Console.getUserInputWithLabel("| Date:");
         LocalDate date = parseDate(userInput);
@@ -74,24 +75,7 @@ public class AddWorkoutOperation extends Operation {
         return date;
     }
 
-    protected LocalDate parseDate(String stringDate) throws UserInputNotValidException {
-        String[] dateNumbers = stringDate.split("\\.");
-
-        if (dateNumbers.length != 3) {
-            throw new UserInputNotValidException("Input not valid, use yyyy.mm.dd format: " + stringDate);
-        }
-        try {
-            int year = Integer.parseInt(dateNumbers[0]);
-            int month = Integer.parseInt(dateNumbers[1]);
-            int day = Integer.parseInt(dateNumbers[2]);
-
-            return LocalDate.of(year, month, day);
-        } catch (NumberFormatException e) {
-            throw new UserInputNotValidException("Entered date not valid. Please use integers for input");
-        }
-    }
-
-    protected int getPositiveNumberWithLabel(String label) throws UserInputNotValidException {
+    protected int promptPositiveNumberWithLabel(String label) throws UserInputNotValidException {
         String userInput = Console.getUserInputWithLabel("| " + label);
 
         try {

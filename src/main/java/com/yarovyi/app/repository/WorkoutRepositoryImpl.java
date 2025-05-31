@@ -6,6 +6,7 @@ import com.yarovyi.app.exception.ObjectSavingException;
 import com.yarovyi.app.repository.persistence.EntityStorage;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.*;
 
 import static com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates.PRINT_ERROR;
@@ -22,6 +23,36 @@ public class WorkoutRepositoryImpl implements WorkoutRepository, PersistenceRepo
     public List<Workout> getAllWorkouts() {
         return workouts.values().stream()
                 .map(Workout::new)
+                .toList();
+    }
+
+    @Override
+    public List<Workout> getWorkoutsForWeekStartsFromDate(LocalDate date) {
+        if (date == null) {
+            throw new IllegalArgumentException("date is null");
+        }
+
+        LocalDate start = date.minusDays(1);
+        LocalDate end = date.plusDays(7);
+        List<Workout> workouts = new ArrayList<>(this.workouts.values());
+        List<Workout> result = new ArrayList<>();
+        for (Workout w : workouts) {
+            if (w.getDate().isAfter(start) && w.getDate().isBefore(end)) {
+                result.add(w);
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<Workout> getWorkoutsForMonth(YearMonth month) {
+        if (month == null) {
+            throw new IllegalArgumentException("month is null");
+        }
+
+        return this.workouts.values().stream()
+                .filter(w -> YearMonth.from(w.getDate()).equals(month))
                 .toList();
     }
 

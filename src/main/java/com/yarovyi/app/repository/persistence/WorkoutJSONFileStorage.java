@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.List;
 
 public class WorkoutJSONFileStorage implements EntityStorage<Workout> {
-    public static final String SAVES_PATH = "saves.json";
+    public static final String SAVES_PATH = "workouts.json";
     private final ObjectMapper mapper = new ObjectMapper();
     private final FileService fileService;
 
@@ -30,6 +30,8 @@ public class WorkoutJSONFileStorage implements EntityStorage<Workout> {
             }
 
             Workout[] workouts = this.mapper.readValue(json, Workout[].class);
+            System.out.println("-- All persistence entities were loaded");
+
             return List.of(workouts);
         } catch (IOException e) {
             throw new ObjectLoadingException("Failed to load workout from file", e);
@@ -43,6 +45,7 @@ public class WorkoutJSONFileStorage implements EntityStorage<Workout> {
             String json = this.mapper.writeValueAsString(entities);
 
             this.fileService.writeToFile(json, file);
+            System.out.println("-- All persistence entities ware saved");
         } catch (IOException e) {
             throw new ObjectSavingException("Failed to save workouts to file", e);
         }

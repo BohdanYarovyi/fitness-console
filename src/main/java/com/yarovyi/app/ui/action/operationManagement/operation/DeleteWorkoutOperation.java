@@ -8,8 +8,7 @@ import com.yarovyi.app.repository.WorkoutRepository;
 
 import java.util.UUID;
 
-import static com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates.FORMAT_WORKOUT;
-import static com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates.PRINT_WARNING;
+import static com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates.*;
 
 public class DeleteWorkoutOperation extends Operation {
     private AppContext appContext;
@@ -18,10 +17,11 @@ public class DeleteWorkoutOperation extends Operation {
     @Override
     public void doOperation() {
         try {
-            UUID id = getWorkoutId();
+            UUID id = promptWorkoutId();
             deleteWorkout(id);
+            PRINT_MESSAGE.accept("| Workout was deleted");
         } catch (UserInputNotValidException e) {
-            PRINT_WARNING.accept(e.getMessage());
+            PRINT_WARNING.accept("| " + e.getMessage());
         }
     }
 
@@ -61,12 +61,12 @@ public class DeleteWorkoutOperation extends Operation {
 
 
         String workoutView = FORMAT_WORKOUT.apply(workout);
-        String message = workoutView + "Are you sure to delete workout?";
+        String message = workoutView + "| Are you sure to delete workout?";
 
         return Console.isUserSure(message);
     }
 
-    private UUID getWorkoutId() throws UserInputNotValidException {
+    private UUID promptWorkoutId() throws UserInputNotValidException {
         String userInput = Console.getUserInputWithLabel("| Workout ID for delete:");
         try {
             return UUID.fromString(userInput);

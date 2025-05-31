@@ -30,10 +30,18 @@ public class Workout {
     }
 
     public enum ExerciseType {
-        YOGA,
         RUNNING,
+        CYCLING,
+        SWIMMING,
+        YOGA,
+        WALKING,
         PRESSING,
-        SWIMMING
+        GYM,
+        BOXING,
+        DANCING,
+        HIIT,
+        PILATES,
+        DANCE
     }
 
     @Override

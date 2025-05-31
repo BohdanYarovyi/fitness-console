@@ -22,12 +22,10 @@ public class PersistenceService {
 
     public void saveAll() {
         this.persistenceRepositories.forEach(PersistenceRepository::save);
-        System.out.println("-- All persistence entities ware saved");
     }
 
     public void loadAll() {
         this.persistenceRepositories.forEach(PersistenceRepository::load);
-        System.out.println("-- All persistence entities were loaded");
     }
 
 }
