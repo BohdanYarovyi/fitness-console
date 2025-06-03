@@ -9,12 +9,13 @@ import java.io.*;
 import java.util.List;
 
 public class WorkoutJSONFileStorage implements EntityStorage<Workout> {
-    public static final String SAVES_PATH = "workouts.json";
     private final ObjectMapper mapper = new ObjectMapper();
     private final FileService fileService;
+    private final File file;
 
-    public WorkoutJSONFileStorage(FileService fileService) {
+    public WorkoutJSONFileStorage(FileService fileService, File file) {
         this.fileService = fileService;
+        this.file = file;
 
         mapper.findAndRegisterModules();
     }
@@ -22,7 +23,6 @@ public class WorkoutJSONFileStorage implements EntityStorage<Workout> {
     @Override
     public List<Workout> load() throws ObjectLoadingException {
         try {
-            File file = new File(SAVES_PATH);
             String json = this.fileService.readFile(file);
 
             if (json == null || json.isBlank()) {
@@ -41,7 +41,6 @@ public class WorkoutJSONFileStorage implements EntityStorage<Workout> {
     @Override
     public void save(List<Workout> entities) throws ObjectSavingException {
         try {
-            File file = new File(SAVES_PATH);
             String json = this.mapper.writeValueAsString(entities);
 
             this.fileService.writeToFile(json, file);

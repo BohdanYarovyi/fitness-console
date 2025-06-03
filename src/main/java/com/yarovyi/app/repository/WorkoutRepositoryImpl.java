@@ -9,8 +9,6 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.*;
 
-import static com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates.PRINT_ERROR;
-
 public class WorkoutRepositoryImpl implements WorkoutRepository, PersistenceRepository {
     private final Map<UUID, Workout> workouts = new HashMap<>();
     private final EntityStorage<Workout> workoutStorage;

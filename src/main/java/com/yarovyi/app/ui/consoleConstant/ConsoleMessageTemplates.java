@@ -1,10 +1,10 @@
 package com.yarovyi.app.ui.consoleConstant;
 
-import com.yarovyi.app.ui.action.commandManagement.command.Command;
-import com.yarovyi.app.ui.action.commandManagement.CommandRegister;
-import com.yarovyi.app.ui.menu.Menu;
-import com.yarovyi.app.ui.action.operationManagement.operation.Operation;
-import com.yarovyi.app.ui.action.operationManagement.OperationRegister;
+import com.yarovyi.app.ui.cli.action.commandManagement.Command;
+import com.yarovyi.app.ui.cli.action.commandManagement.CommandRegister;
+import com.yarovyi.app.ui.cli.menu.Menu;
+import com.yarovyi.app.ui.cli.action.operationManagement.Operation;
+import com.yarovyi.app.ui.cli.action.operationManagement.OperationRegister;
 import com.yarovyi.app.entity.Workout;
 
 import java.util.List;
@@ -22,80 +22,6 @@ public interface ConsoleMessageTemplates {
                 """;
 
         System.out.print(template);
-    };
-
-
-    Consumer<String> PRINT_MENU_TITLE = (menuName) -> {
-        int width = 40;
-        String brackets = "\uD83D\uDCD1";
-        String title = brackets + " " + menuName + " " + brackets;
-
-        int sideOffset = (width - title.length()) / 2;
-        String sideMargin = " ".repeat(sideOffset);
-        System.out.println(sideMargin + title + sideMargin);
-    };
-
-
-    Consumer<List<Menu>> PRINT_LIST_OF_SUBMENUS = (submenus) -> {
-        if (submenus.isEmpty()) {
-            return;
-        }
-
-        String header = "Choose section by entering number:\n";
-        String menuItem = "%5d. %s\n";
-        StringBuilder menu = new StringBuilder(header);
-
-        for (int i = 0; i < submenus.size(); i++) {
-            String sectionName = submenus.get(i).getMenuName();
-            menu.append(menuItem.formatted(i + 1, sectionName));
-        }
-
-        System.out.print(menu);
-    };
-
-
-    Consumer<OperationRegister> PRINT_LIST_OF_OPERATIONS = (operationRegister) -> {
-        Set<Operation> operations = operationRegister.getOperations();
-        if (operations.isEmpty()) {
-            return;
-        }
-
-        String header = "Chose operation:\n";
-        String listItemTemplate = "%5s %-20s - %s \n";
-        StringBuilder list = new StringBuilder(header);
-        for (Operation operation : operations) {
-            var pointer = "-";
-            var pattern = operation.getOperationPattern();
-            var description = operation.getOperationDescription();
-            String formatterLine = listItemTemplate.formatted(pointer, pattern, description);
-
-            list.append(formatterLine);
-        }
-
-        System.out.print(list);
-    };
-
-
-    Consumer<CommandRegister> PRINT_LIST_OF_COMMANDS = (commandRegister) -> {
-        Set<Command> commands = commandRegister.getCommands();
-        if (commands.isEmpty()) {
-            return;
-        }
-
-        String header = "Choose command:\n";
-        String listItemTemplate = "%5s %-20s - %s \n";
-        StringBuilder list = new StringBuilder();
-        list.append(header);
-        for (Command command : commands) {
-            var pointer = "-";
-            var pattern = command.getCommandPattern();
-            var description = command.getCommandDescription();
-            String formatterLine = listItemTemplate.formatted(pointer, pattern, description);
-
-            list.append(formatterLine);
-        }
-
-        System.out.print(list);
     };
 
     Consumer<Workout.ExerciseType[]> PRINT_LIST_OF_EXERCISE_TYPE = (types) -> {

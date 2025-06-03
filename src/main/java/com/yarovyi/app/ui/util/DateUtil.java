@@ -1,6 +1,6 @@
 package com.yarovyi.app.ui.util;
 
-import com.yarovyi.app.ui.exception.UserInputNotValidException;
+import com.yarovyi.app.exception.UserInputNotValidException;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;

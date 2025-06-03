@@ -1,37 +1,42 @@
 package com.yarovyi.app;
 
-import com.yarovyi.app.context.PersistenceService;
+import com.yarovyi.app.service.PersistenceService;
 import com.yarovyi.app.repository.PersistenceRepository;
 import com.yarovyi.app.repository.WorkoutRepository;
 import com.yarovyi.app.repository.WorkoutRepositoryImpl;
-import com.yarovyi.app.ui.action.commandManagement.CommandRegister;
-import com.yarovyi.app.ui.action.commandManagement.command.BackCommand;
-import com.yarovyi.app.ui.action.commandManagement.command.ExitCommand;
-import com.yarovyi.app.ui.action.operationManagement.OperationRegister;
-import com.yarovyi.app.ui.action.operationManagement.operation.*;
+import com.yarovyi.app.ui.cli.action.commandManagement.CommandRegister;
+import com.yarovyi.app.ui.command.BackCommand;
+import com.yarovyi.app.ui.command.ExitCommand;
+import com.yarovyi.app.ui.cli.action.operationManagement.OperationRegister;
 import com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates;
-import com.yarovyi.app.ui.menu.*;
-import com.yarovyi.app.context.AppContext;
+import com.yarovyi.app.ui.cli.menu.Menu;
+import com.yarovyi.app.ui.cli.menu.SimpleMenu;
+import com.yarovyi.app.ui.cli.context.AppContext;
 import com.yarovyi.app.entity.Workout;
 import com.yarovyi.app.repository.persistence.FileServiceImpl;
 import com.yarovyi.app.repository.persistence.EntityStorage;
 import com.yarovyi.app.repository.persistence.WorkoutJSONFileStorage;
+import com.yarovyi.app.ui.menuHandling.SimpleMenuHandler;
+import com.yarovyi.app.ui.operation.*;
+
+import java.io.File;
 
 public class FitnessTracker {
+    public static final String WORKOUTS_FILE_PATH = "workouts.json";
 
     public static void main(String[] args) {
-        WorkoutRepository workoutRepository = getWorkoutRepository();
+        // context
+        AppContext context = configureContext();
 
-        PersistenceService persistenceService = new PersistenceService();
-        persistenceService.addPersistenceRepository((PersistenceRepository) workoutRepository);
-
-        AppContext context = new AppContext(persistenceService, workoutRepository);
+        // load persistence entities
+        PersistenceService persistenceService = context.getComponent("persistenceService", PersistenceService.class);
         persistenceService.loadAll();
 
-        runCli(context);
+        // run
+        configureAndRun(context);
     }
 
-    public static void runCli(AppContext context) {
+    public static void configureAndRun(AppContext context) {
         ConsoleMessageTemplates.PRINT_WELCOME.run();
 
         Menu menu = createLobbyMenu(context);
@@ -40,7 +45,7 @@ public class FitnessTracker {
     }
 
     public static Menu createLobbyMenu(AppContext context) {
-        Menu lobby = new SimpleMenu("Lobby", context);
+        Menu lobby = new SimpleMenu("Lobby", new SimpleMenuHandler(), context);
 
         // add submenus
         Menu statMenu = createStatMenu(context);
@@ -55,7 +60,7 @@ public class FitnessTracker {
     }
 
     public static Menu createStatMenu(AppContext context) {
-        Menu stat = new SimpleMenu("Statistics", context);
+        Menu stat = new SimpleMenu("Statistics", new SimpleMenuHandler(), context);
 
         // add commands in register
         CommandRegister commandRegister = stat.getCommandRegister();
@@ -71,7 +76,7 @@ public class FitnessTracker {
     }
 
     public static Menu createWorkoutMenu(AppContext context) {
-        Menu workoutMenu = new SimpleMenu("Workout management", context);
+        Menu workoutMenu = new SimpleMenu("Workout management", new SimpleMenuHandler(), context);
 
         // add commands in register
         CommandRegister commandRegister = workoutMenu.getCommandRegister();
@@ -87,9 +92,25 @@ public class FitnessTracker {
         return workoutMenu;
     }
 
-    public static WorkoutRepository getWorkoutRepository() {
+    public static AppContext configureContext() {
+        // WORKOUT repository
+        WorkoutRepository workoutRepository = getWorkoutRepository(WORKOUTS_FILE_PATH);
+
+        // PERSISTENCE service
+        PersistenceService persistenceService = new PersistenceService();
+        persistenceService.addPersistenceRepository((PersistenceRepository) workoutRepository);
+
+        AppContext context = new AppContext();
+        context.addComponent("persistenceService", persistenceService);
+        context.addComponent("workoutRepository", workoutRepository);
+
+        return context;
+    }
+
+    public static WorkoutRepository getWorkoutRepository(String workoutFilePath) {
         FileServiceImpl fileService = new FileServiceImpl();
-        EntityStorage<Workout> workoutEntityStorage = new WorkoutJSONFileStorage(fileService);
+        File file = new File(workoutFilePath);
+        EntityStorage<Workout> workoutEntityStorage = new WorkoutJSONFileStorage(fileService, file);
 
         return new WorkoutRepositoryImpl(workoutEntityStorage);
     }
