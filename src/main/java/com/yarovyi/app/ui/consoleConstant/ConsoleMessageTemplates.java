@@ -1,14 +1,7 @@
 package com.yarovyi.app.ui.consoleConstant;
 
-import com.yarovyi.app.ui.cli.action.commandManagement.Command;
-import com.yarovyi.app.ui.cli.action.commandManagement.CommandRegister;
-import com.yarovyi.app.ui.cli.menu.Menu;
-import com.yarovyi.app.ui.cli.action.operationManagement.Operation;
-import com.yarovyi.app.ui.cli.action.operationManagement.OperationRegister;
 import com.yarovyi.app.entity.Workout;
 
-import java.util.List;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -61,7 +54,5 @@ public interface ConsoleMessageTemplates {
     Consumer<String> PRINT_CONSOLE_INPUT_PREFIX = (prefix) -> {
         System.out.print(prefix + " ");
     };
-
-    Runnable PRINT_CONSOLE_SEPARATOR = () -> System.out.println("-".repeat(40) + "\n");
 
 }

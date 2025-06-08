@@ -14,7 +14,6 @@ import static com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates.PRINT_W
 import static com.yarovyi.app.ui.util.DateUtil.*;
 
 public class CountCaloriesForMonthOperation extends Operation {
-    private AppContext appContext;
 
 
     @Override
@@ -31,7 +30,8 @@ public class CountCaloriesForMonthOperation extends Operation {
     }
 
     private int countCaloriesForMonth(YearMonth yearMonth) {
-        WorkoutRepository workoutRepository = appContext.getComponent("workoutRepository", WorkoutRepository.class);
+        AppContext context = getApplicationContext();
+        WorkoutRepository workoutRepository = context.getComponent("workoutRepository", WorkoutRepository.class);
 
         return workoutRepository
                 .getWorkoutsForMonth(yearMonth)
@@ -56,11 +56,6 @@ public class CountCaloriesForMonthOperation extends Operation {
     @Override
     public String getPattern() {
         return "/caloriesForMonth";
-    }
-
-    @Override
-    public void setApplicationContext(AppContext context) {
-        this.appContext = context;
     }
 
 }

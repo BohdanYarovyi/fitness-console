@@ -5,9 +5,10 @@ import com.yarovyi.app.repository.PersistenceRepository;
 import com.yarovyi.app.repository.WorkoutRepository;
 import com.yarovyi.app.repository.WorkoutRepositoryImpl;
 import com.yarovyi.app.ui.cli.action.commandManagement.CommandRegister;
-import com.yarovyi.app.ui.command.BackCommand;
-import com.yarovyi.app.ui.command.ExitCommand;
+import com.yarovyi.app.ui.cli.action.commandManagement.command.BackCommand;
+import com.yarovyi.app.ui.cli.action.commandManagement.command.ExitCommand;
 import com.yarovyi.app.ui.cli.action.operationManagement.OperationRegister;
+import com.yarovyi.app.ui.command.AutosaveExitCommand;
 import com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates;
 import com.yarovyi.app.ui.cli.menu.Menu;
 import com.yarovyi.app.ui.cli.menu.SimpleMenu;
@@ -54,7 +55,7 @@ public class FitnessTracker {
         lobby.addSubmenu(workoutMenu);
 
         // add command in register
-        lobby.getCommandRegister().addCommand(new ExitCommand());
+        lobby.getCommandRegister().addCommand(new AutosaveExitCommand());
 
         return lobby;
     }
@@ -64,7 +65,7 @@ public class FitnessTracker {
 
         // add commands in register
         CommandRegister commandRegister = stat.getCommandRegister();
-        commandRegister.addCommand(new ExitCommand());
+        commandRegister.addCommand(new AutosaveExitCommand());
         commandRegister.addCommand(new BackCommand());
 
         // add operations in register
@@ -80,7 +81,7 @@ public class FitnessTracker {
 
         // add commands in register
         CommandRegister commandRegister = workoutMenu.getCommandRegister();
-        commandRegister.addCommand(new ExitCommand());
+        commandRegister.addCommand(new AutosaveExitCommand());
         commandRegister.addCommand(new BackCommand());
 
         // add operations in register

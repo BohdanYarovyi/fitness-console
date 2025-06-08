@@ -12,8 +12,6 @@ import java.util.UUID;
 import static com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates.*;
 
 public class DeleteWorkoutOperation extends Operation {
-    private AppContext appContext;
-
 
     @Override
     public void doOperation(String[] args) {
@@ -36,13 +34,9 @@ public class DeleteWorkoutOperation extends Operation {
         return "/deleteWorkout";
     }
 
-    @Override
-    public void setApplicationContext(AppContext context) {
-        this.appContext = context;
-    }
-
     private void deleteWorkout(UUID id) throws UserInputNotValidException {
-        WorkoutRepository workoutRepository = appContext.getComponent("workoutRepository", WorkoutRepository.class);
+        AppContext context = getApplicationContext();
+        WorkoutRepository workoutRepository = context.getComponent("workoutRepository", WorkoutRepository.class);
 
         if (workoutRepository.existWorkoutById(id)) {
             if (askUserConfirmation(id)){
@@ -55,7 +49,8 @@ public class DeleteWorkoutOperation extends Operation {
     }
 
     private boolean askUserConfirmation(UUID id) throws UserInputNotValidException {
-        WorkoutRepository workoutRepository = appContext.getComponent("workoutRepository", WorkoutRepository.class);
+        AppContext context = getApplicationContext();
+        WorkoutRepository workoutRepository = context.getComponent("workoutRepository", WorkoutRepository.class);
 
         Workout workout = workoutRepository
                 .getWorkoutById(id)

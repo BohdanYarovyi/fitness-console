@@ -10,6 +10,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Standard implementation of the {@link Menu} interface.
+ *
+ * <p>
+ * This class provides a basic menu structure with a name, submenus,
+ * command register, operation register, menu handler, and running state.
+ * It does not introduce any new behavior — it simply implements the interface.
+ * </p>
+ *
+ * @since 1.0
+ * @author Bohdan Yarovyi
+ */
 public class SimpleMenu implements Menu {
     private final String menuName;
     private final List<Menu> submenus;

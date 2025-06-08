@@ -14,11 +14,11 @@ import static com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates.*;
 import static com.yarovyi.app.ui.util.DateUtil.parseDate;
 
 public class AddWorkoutOperation extends Operation {
-    private AppContext appContext;
 
     @Override
     public void doOperation(String[] args) {
-        WorkoutRepository workoutRepository = appContext.getComponent("workoutRepository", WorkoutRepository.class);
+        AppContext context = getApplicationContext();
+        WorkoutRepository workoutRepository = context.getComponent("workoutRepository", WorkoutRepository.class);
 
         try {
             Workout.ExerciseType exerciseType = promptExerciseType();
@@ -44,11 +44,6 @@ public class AddWorkoutOperation extends Operation {
         return "/addWorkout";
     }
 
-    @Override
-    public void setApplicationContext(AppContext context) {
-        this.appContext = context;
-    }
-
     protected Workout.ExerciseType promptExerciseType() throws UserInputNotValidException {
         Workout.ExerciseType[] types = Workout.ExerciseType.values();
         PRINT_LIST_OF_EXERCISE_TYPE.accept(types);
@@ -65,7 +60,8 @@ public class AddWorkoutOperation extends Operation {
     }
 
     protected LocalDate promptDate() throws UserInputNotValidException {
-        WorkoutRepository workoutRepository = appContext.getComponent("workoutRepository", WorkoutRepository.class);
+        AppContext context = getApplicationContext();
+        WorkoutRepository workoutRepository = context.getComponent("workoutRepository", WorkoutRepository.class);
 
         String userInput = Console.getUserInputWithLabel("| Date:");
         LocalDate date = parseDate(userInput);

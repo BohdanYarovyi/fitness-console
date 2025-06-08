@@ -14,7 +14,6 @@ import static com.yarovyi.app.ui.util.Console.getUserInputWithLabel;
 import static com.yarovyi.app.ui.util.DateUtil.parseDate;
 
 public class CountCaloriesForWeekOperation extends Operation {
-    private AppContext appContext;
 
     @Override
     public void doOperation(String[] args) {
@@ -30,7 +29,8 @@ public class CountCaloriesForWeekOperation extends Operation {
     }
 
     private int countCaloriesForWeek(LocalDate date) {
-        WorkoutRepository workoutRepository = appContext.getComponent("workoutRepository", WorkoutRepository.class);
+        AppContext context = getApplicationContext();
+        WorkoutRepository workoutRepository = context.getComponent("workoutRepository", WorkoutRepository.class);
 
         return workoutRepository
                 .getWorkoutsForWeekStartsFromDate(date)
@@ -55,11 +55,6 @@ public class CountCaloriesForWeekOperation extends Operation {
     @Override
     public String getPattern() {
         return "/caloriesForWeek";
-    }
-
-    @Override
-    public void setApplicationContext(AppContext context) {
-        this.appContext = context;
     }
 
 }

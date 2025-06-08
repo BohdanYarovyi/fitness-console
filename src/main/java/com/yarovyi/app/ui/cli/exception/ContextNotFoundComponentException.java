@@ -1,5 +1,12 @@
 package com.yarovyi.app.ui.cli.exception;
 
+/**
+ * Throws if not found requested component.
+ *
+ * @see com.yarovyi.app.ui.cli.context.AppContext AppContext
+ * @author Bohdan Yarovyi
+ * @since 1.0
+ */
 public class ContextNotFoundComponentException extends RuntimeException {
 
     public ContextNotFoundComponentException() {
