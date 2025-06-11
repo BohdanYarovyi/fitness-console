@@ -1,11 +1,11 @@
 package com.yarovyi.app.ui.operation;
 
 import com.yarovyi.app.repository.WorkoutRepository;
-import com.yarovyi.app.ui.cli.action.operationManagement.Operation;
-import com.yarovyi.app.ui.cli.context.AppContext;
 import com.yarovyi.app.entity.Workout;
 import com.yarovyi.app.exception.UserInputNotValidException;
 import com.yarovyi.app.ui.util.Console;
+import io.github.bohdanyarovyi.cli.action.operationManagement.Operation;
+import io.github.bohdanyarovyi.cli.context.AppContext;
 
 import java.time.YearMonth;
 

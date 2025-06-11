@@ -1,24 +1,23 @@
 package com.yarovyi.app;
 
 import com.yarovyi.app.service.PersistenceService;
+import com.yarovyi.app.entity.Workout;
 import com.yarovyi.app.repository.PersistenceRepository;
 import com.yarovyi.app.repository.WorkoutRepository;
 import com.yarovyi.app.repository.WorkoutRepositoryImpl;
-import com.yarovyi.app.ui.cli.action.commandManagement.CommandRegister;
-import com.yarovyi.app.ui.cli.action.commandManagement.command.BackCommand;
-import com.yarovyi.app.ui.cli.action.commandManagement.command.ExitCommand;
-import com.yarovyi.app.ui.cli.action.operationManagement.OperationRegister;
-import com.yarovyi.app.ui.command.AutosaveExitCommand;
-import com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates;
-import com.yarovyi.app.ui.cli.menu.Menu;
-import com.yarovyi.app.ui.cli.menu.SimpleMenu;
-import com.yarovyi.app.ui.cli.context.AppContext;
-import com.yarovyi.app.entity.Workout;
 import com.yarovyi.app.repository.persistence.FileServiceImpl;
 import com.yarovyi.app.repository.persistence.EntityStorage;
 import com.yarovyi.app.repository.persistence.WorkoutJSONFileStorage;
+import com.yarovyi.app.ui.command.AutosaveExitCommand;
+import com.yarovyi.app.ui.consoleConstant.ConsoleMessageTemplates;
 import com.yarovyi.app.ui.menuHandling.SimpleMenuHandler;
 import com.yarovyi.app.ui.operation.*;
+import io.github.bohdanyarovyi.cli.action.commandManagement.CommandRegister;
+import io.github.bohdanyarovyi.cli.action.commandManagement.command.BackCommand;
+import io.github.bohdanyarovyi.cli.action.operationManagement.OperationRegister;
+import io.github.bohdanyarovyi.cli.context.AppContext;
+import io.github.bohdanyarovyi.cli.menu.Menu;
+import io.github.bohdanyarovyi.cli.menu.SimpleMenu;
 
 import java.io.File;
 

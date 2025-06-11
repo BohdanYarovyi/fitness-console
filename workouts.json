@@ -1,1 +1,68 @@
-[{"id":"24c8aec0-0da2-4980-b116-d140c86325cd","exerciseType":"YOGA","date":[2025,5,31],"durationMinutes":233,"caloriesBurned":122},{"id":"78b2bc2e-e771-4954-8672-cb2bb48c0a4e","exerciseType":"RUNNING","date":[2025,5,30],"durationMinutes":200,"caloriesBurned":300},{"id":"3cc867ac-c251-4d72-b47e-433e95c7f474","exerciseType":"SWIMMING","date":[2025,5,29],"durationMinutes":90,"caloriesBurned":800},{"id":"e5b74628-7aba-4d3b-9fc4-930e14203520","exerciseType":"DANCE","date":[2025,6,3],"durationMinutes":200,"caloriesBurned":1000},{"id":"e20cae13-ba1b-473b-a068-3694b516b8ea","exerciseType":"BOXING","date":[2025,6,4],"durationMinutes":360,"caloriesBurned":2500}]
+[
+  {
+    "id": "24c8aec0-0da2-4980-b116-d140c86325cd",
+    "exerciseType": "YOGA",
+    "date": [
+      2025,
+      5,
+      31
+    ],
+    "durationMinutes": 233,
+    "caloriesBurned": 122
+  },
+  {
+    "id": "78b2bc2e-e771-4954-8672-cb2bb48c0a4e",
+    "exerciseType": "RUNNING",
+    "date": [
+      2025,
+      5,
+      30
+    ],
+    "durationMinutes": 200,
+    "caloriesBurned": 300
+  },
+  {
+    "id": "3cc867ac-c251-4d72-b47e-433e95c7f474",
+    "exerciseType": "SWIMMING",
+    "date": [
+      2025,
+      5,
+      29
+    ],
+    "durationMinutes": 90,
+    "caloriesBurned": 800
+  },
+  {
+    "id": "e5b74628-7aba-4d3b-9fc4-930e14203520",
+    "exerciseType": "DANCE",
+    "date": [
+      2025,
+      6,
+      3
+    ],
+    "durationMinutes": 200,
+    "caloriesBurned": 1000
+  },
+  {
+    "id": "6184f726-5636-4e3a-8915-8f679c0ab67a",
+    "exerciseType": "WALKING",
+    "date": [
+      2025,
+      5,
+      22
+    ],
+    "durationMinutes": 210,
+    "caloriesBurned": 600
+  },
+  {
+    "id": "e20cae13-ba1b-473b-a068-3694b516b8ea",
+    "exerciseType": "BOXING",
+    "date": [
+      2025,
+      6,
+      4
+    ],
+    "durationMinutes": 360,
+    "caloriesBurned": 2500
+  }
+]
