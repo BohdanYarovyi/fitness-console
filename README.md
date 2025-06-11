@@ -26,7 +26,7 @@ as well as calculate total calories burned weekly or monthly.
   > It is now used as an external dependency rather than being part of the program itself.
   > 
   > [YaLM](https://github.com/BohdanYarovyi/YaLM) 
-  > was published to [Central Maven Repository]([https://central.sonatype.com/](https://central.sonatype.com/artifact/io.github.bohdanyarovyi/ylmenu)), and it is available for 
+  > was published to [Central Maven Repository](https://central.sonatype.com/artifact/io.github.bohdanyarovyi/ylmenu), and it is available for 
   > [using](https://github.com/BohdanYarovyi/YaLM?tab=readme-ov-file#-getting-started).
   
 - > The program uses dependency for JSON working - [JACKSON](https://github.com/FasterXML/jackson-core).
